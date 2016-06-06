@@ -163,6 +163,20 @@ public class IPv4 {
 
         return sb.toString();
     }
+    private String convertNumericIpToSymbolic(long ourIP) {
+        StringBuffer sb = new StringBuffer(15);
+
+        for (int shift = 24; shift > 0; shift -= 8) {
+
+            // process 3 bytes, from high order byte down.
+            sb.append(Long.toString((ourIP >>> shift) & 0xff));
+
+            sb.append('.');
+        }
+        sb.append(Long.toString(ourIP & 0xff));
+
+        return sb.toString();
+    }
 
 /**
 * Get the net mask in symbolic form, i.e. xxx.xxx.xxx.xxx
@@ -208,7 +222,36 @@ public class IPv4 {
 *
 *@return
 */
-    public List<String> getAvailableIPs(Integer numberofIPs) {
+    public List<String> getAvailableIPs(long numberofIPs) {
+
+        ArrayList<String> result = new ArrayList<String>();
+        int numberOfBits;
+
+        for (numberOfBits = 0; numberOfBits < 32; numberOfBits++) {
+
+            if ((netmaskNumeric << numberOfBits) == 0)
+                break;
+        }
+        Integer numberOfIPs = 0;
+        for (int n = 0; n < (32 - numberOfBits); n++) {
+
+            numberOfIPs = numberOfIPs << 1;
+            numberOfIPs = numberOfIPs | 0x01;
+        }
+
+        Integer baseIP = baseIPnumeric & netmaskNumeric;
+
+        for (long i = 1; i < (numberOfIPs) && i < numberofIPs; i++) {
+
+            long ourIP = baseIP + i;
+
+            String ip = convertNumericIpToSymbolic(ourIP);
+
+            result.add(ip);
+        }
+        return result;
+    }
+    public List<String> getAvailableIPs(int numberofIPs) {
 
         ArrayList<String> result = new ArrayList<String>();
         int numberOfBits;
@@ -229,7 +272,7 @@ public class IPv4 {
 
         for (int i = 1; i < (numberOfIPs) && i < numberofIPs; i++) {
 
-            Integer ourIP = baseIP + i;
+            int ourIP = baseIP + i;
 
             String ip = convertNumericIpToSymbolic(ourIP);
 

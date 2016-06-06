@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Subnet {
 	
 	
 	public ArrayList<Host> hosts;
-	public ArrayList<Host> potentialHosts;
+	public List<String> potentialHosts;
 
 	public ArrayList<Host> getHosts() {
 		return hosts;
