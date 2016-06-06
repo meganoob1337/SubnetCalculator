@@ -7,7 +7,8 @@ public class Subnet {
 	
 	public ArrayList<Host> hosts;
 	public List<String> potentialHosts;
-
+	
+	
 	public ArrayList<Host> getHosts() {
 		return hosts;
 	}
