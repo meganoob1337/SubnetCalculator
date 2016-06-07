@@ -272,7 +272,7 @@ public class IPv4 {
 
         for (int i = 1; i < (numberOfIPs) && i < numberofIPs; i++) {
 
-            int ourIP = baseIP + i;
+            i ourIP = baseIP + i;
 
             String ip = convertNumericIpToSymbolic(ourIP);
 
@@ -382,9 +382,11 @@ public class IPv4 {
 
         Integer ourMaskBitPattern = 1;
         for (int i = 1; i <= 32; i++) {
-
+        	
+        	//bitwiser vergleich unserer numerischen ip mit der bitmaske , wenn das bit für den jeweiligen standvorhanden ist
+        	//wird eine 1 geschrieben , wenn nicht eine null
             if ((number & ourMaskBitPattern) != 0) {
-
+            	System.out.println("INTEGER" +number);
                 result = "1" + result; // the bit is 1
             } else { // the bit is 0
 
@@ -394,13 +396,12 @@ public class IPv4 {
 
                 result = "." + result;
             ourMaskBitPattern = ourMaskBitPattern << 1;
-
+            //linksshift um 1 stelle ==> maskbit *2 ,  z.B. 1000 << 1  = 10000
         }
         return result;
     }
 
     public String getNetmaskInBinary() {
-
         return getBinary(netmaskNumeric);
     }
 
