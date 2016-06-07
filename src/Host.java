@@ -3,7 +3,7 @@ public class Host {
 
 	public IPv4 ipv4;
 	public IPv6 ipv6;
-	public String Ip4Numeric;
+	public String Ip4Symbolic;
 	public String Ip4Binary;
 	
 	public Host(IPv4 ip4){
